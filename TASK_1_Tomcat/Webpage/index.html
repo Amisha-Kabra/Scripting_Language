@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="task.css">
+    <!-- <script src="form.js"></script>  -->
+    <script src="task.js"></script>
+
+</head>
+
+<body>
+    <h6>Host using Tomcat</h6>
+    <form action="" name="myForm" onsubmit="return validateForm()" >
+        <div class="formdesign">
+            <header>
+                Registration Form 
+            </header>
+            <hr color: rgb(12, 79, 156);>
+            <br>
+            <div id="firstName">
+                <label for="firstName">First Name<b style="color: red; font-size: 25px; margin: 0px 0px; ">*</b>
+                </label><br>
+                <input type="text" id="firstName" name="firstName" placeholder=" Enter your First Name">
+                <span class="formError" ></span>
+            </div>
+            <br>
+            <div id="middleName">
+                <label for="middleName">Middle Name<b style="color: red; font-size: 25px; margin: 0px 0px; ">*</b></label><br>
+                <input type="text" id="middleName" name="middleName" placeholder=" Enter your Middle Name">
+                <span class="formError" ></span>
+            </div>
+            <br>
+            <div id="lastName">
+                <label for="lastName">Last Name<b style="color: red; font-size: 25px; margin: 0px 0px; ">*</b></label><br>
+                <input type="text" id="lastName" name="lastName" placeholder=" Enter your Last Name">
+                <span class="formError" ></span>
+            </div>
+            <br>
+            <div id="email">
+                <label for="email">Email<b style="color: red; font-size: 25px; margin: 0px 0px; ">*</b></label><br>
+                <input type="text" id="email" name="email" placeholder=" Enter your Email ID">
+                <span class="formError" ></span>
+            </div>
+            <br>
+            <div id="password1">
+                <label for="password">Password<b style="color: red; font-size: 25px; margin: 0px 0px; ">*</b></label> <br>
+                <input type="password" name="password" id="password" placeholder=" Password" >
+                <span class="eye" onclick="showtext()">
+                    <i id="hide1" class="fa fa-eye"></i>
+                    <i id="hide2" class="fa fa-eye-slash"></i>
+                </span>
+                <span class="formError" ></span>
+            </div>
+            <br>
+            <div id="mobileNumber">
+                <label for="mobileNumber">Mobile No.</label><br>
+                <input type="number" name="mobileNumber" id="mobileNumber" minlength="10" maxlength="10" placeholder=" Enter your Mobile Number">
+                <span class="formError" ></span>
+            </div>
+            <br>
+            <div class="gender">
+                <label for="gender">Gender</label><br>
+                <input type="radio" name="gender" id="male"> Male
+                <input type="radio" name="gender" id="female"> Female
+            </div>
+            <br>
+            <div class="country">
+                <label for="country">Country</label><br>
+                <select name="country" id="country">    
+                    <option value="" selected="selected">-----select Country----</option>
+                </select> <br>
+                <label for="state">State</label><br>
+                <select name="state" id="state">    
+                    <option value="" selected="selected">-----select State----</option>
+                </select> <br>
+                <label for="city">City</label><br>
+                <select name="city" id="city">    
+                    <option value="" selected="selected">-----select city----</option>
+                </select> <br>
+                <label for="zip">Zip Code</label><br>
+                <select name="zip" id="zip">    
+                    <option value="" selected="selected">-----select zip---</option>
+                </select>
+            </div>
+            <br>
+            <div class="domain">
+                <label for="domain">Domain</label><br>
+                <input type="radio" name="domain" id="iot "> IOT
+                <input type="radio" name="domain" id="web"> Web
+                <input type="radio" name="domain" id="android"> Android
+            </div>
+            <br>
+            <div class="skill">
+                <label for="skill">Skill</label><br>
+                <input type="checkbox" name="skill" id="html"> HTML <br>
+                <input type="checkbox" name="skill" id="css"> CSS <br>
+                <input type="checkbox" name="skill" id="js"> JAVASCRIPT <br>
+                <input type="checkbox" name="skill" id="git"> GIT <br>
+                <input type="checkbox" name="skill" id="oops"> OOPS <br>
+            </div>
+            <br>
+            <div class="projectTitle">
+                <label for="projectTitle">Project Title</label><br>
+                <input type="text" id="projectTitle" name="projectTitle" placeholder=" Enter Project Title">
+            </div>
+            <br>
+            
+            <div class="btn">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>
