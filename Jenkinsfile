@@ -8,10 +8,10 @@ pipeline {
                     /* groovylint-disable-next-line NestedBlockDepth */
                     expression {
                         /* groovylint-disable-next-line ExplicitCallToEqualsMethod */
-                        ('SUCCESS'.equals(currentBuild.previousBuild.result)) || env.BUILD_NUMBER == '2'
+                        ('SUCCESS'.equals(currentBuild.previousBuild.result)) 
                     }
                 }
-            }
+            }.0
             steps {
                 /* groovylint-disable-next-line GStringExpressionWithinString */
                 echo "${env.BUILD_NUMBER}"
@@ -23,6 +23,13 @@ pipeline {
         }
         stage('build') {
             steps {
+                script {
+                    def buildNumber = BUILD_NUMBER
+
+                    if(buildNumber == 4){
+                        echo "build number is 4"
+                    }
+                }
                 sh '''
                 cd TASK_1_Tomcat
                 docker build -t tomcat-demo .
@@ -38,7 +45,8 @@ pipeline {
         }
         stage('stop') {
             steps {
-                input("Want to stop Container")
+                input('Want to stop Container')
+                /* groovylint-disable-next-line DuplicateStringLiteral */
                 sh '''
                 docker stop $(docker ps --filter status=running -q)
                 docker rm $(docker ps -aq)
