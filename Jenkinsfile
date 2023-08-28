@@ -63,4 +63,4 @@ def status = 'SUCCESS'.equals(currentBuild.previousBuild.result)
             }
         }
     }
-}
+
