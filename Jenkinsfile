@@ -7,11 +7,12 @@ pipeline {
                 not {
                     /* groovylint-disable-next-line NestedBlockDepth */
                     expression {
-                        env.BUILD_NUMBER == '1'
+                        env.BUILD_NUMBER != '1'
                     }
                 }
             }
             steps {
+                echo 'env.BUILD_NUMBER'
                 sh '''
                 docker stop $(docker ps --filter status=running -q)
                 docker rm $(docker ps -aq)
