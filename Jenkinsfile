@@ -11,7 +11,7 @@ pipeline {
                         ('SUCCESS'.equals(currentBuild.previousBuild.result)) 
                     }
                 }
-            }.0
+            }
             steps {
                 /* groovylint-disable-next-line GStringExpressionWithinString */
                 echo "${env.BUILD_NUMBER}"
