@@ -1,5 +1,7 @@
 pipeline {
-    agent slave-node
+    agent {
+        label 'slave-node'
+    }
     stages {
         stage('pre build stage') {
             steps {
