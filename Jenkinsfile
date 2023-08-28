@@ -26,8 +26,8 @@ pipeline {
                 script {
                     def buildNumber = BUILD_NUMBER
 
-                    if(buildNumber == 7){
-                        echo "build number is 7"
+                    if(buildNumber != 100 ){
+                        echo "build number is ${buildNumber}"
                     }
                 }
                 sh '''
