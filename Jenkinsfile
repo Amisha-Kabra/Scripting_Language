@@ -1,6 +1,6 @@
 /* groovylint-disable-next-line CompileStatic */
 pipeline {
-    agent any
+    agent slave-node
     stages {
         stage('pre build stage') {
             steps {
