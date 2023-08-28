@@ -14,18 +14,18 @@ pipeline {
             // }
             steps {
                 /* groovylint-disable-next-line GStringExpressionWithinString */
-                script {
-                    def buildNumber = BUILD_NUMBER
-                    def status = 'SUCCESS'.equals(currentBuild.previousBuild.result)
-                    if(buildNumber != 1 && status== false ){
-                        echo "build number is ${buildNumber} and ${status}"
+                // script {
+                    // def buildNumber = BUILD_NUMBER
+                    // def status = 'SUCCESS'.equals(currentBuild.previousBuild.result)
+                    // if(buildNumber != 1 && status== false ){
+                    //     echo "build number is ${buildNumber} and ${status}"
                         sh '''
-                docker stop $(docker ps --filter status=running -q)
-                docker rm $(docker ps -aq)
+                docker stop $(docker ps --filter status=running -q) || true
+                docker rm $(docker ps -aq) || true
                 '''
                     }
-                }
-                }
+                // }
+                // }
                 
                 
             }
