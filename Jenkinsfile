@@ -1,4 +1,3 @@
-/* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent slave-node
     stages {
