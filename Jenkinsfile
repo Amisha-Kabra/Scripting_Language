@@ -25,9 +25,9 @@ pipeline {
             steps {
                 script {
                     def buildNumber = BUILD_NUMBER
-
+def status = 'SUCCESS'.equals(currentBuild.previousBuild.result)
                     if(buildNumber != 100 ){
-                        echo "build number is ${buildNumber}"
+                        echo "build number is ${buildNumber} and ${status}"
                     }
                 }
                 sh '''
