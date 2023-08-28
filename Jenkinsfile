@@ -23,9 +23,7 @@ pipeline {
         }
         stage('build') {
             steps {
-                echo "${JOB_NAME}"
                 sh '''
-                sudo chmod 777 /var/run/docker.sock
                 cd TASK_1_Tomcat
                 docker build -t tomcat-demo .
                 '''
