@@ -9,7 +9,7 @@ pipeline {
                     expression {
                         /* groovylint-disable-next-line ExplicitCallToEqualsMethod */
                         !('SUCCESS'.equals(currentBuild.previousBuild.result))
-                    // env.BUILD_NUMBER == '1'
+                         env.BUILD_NUMBER == '1'
                     }
                 }
             }
