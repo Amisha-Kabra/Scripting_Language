@@ -7,13 +7,15 @@ pipeline {
                 not {
                     /* groovylint-disable-next-line NestedBlockDepth */
                     expression {
-                        env.BUILD_NUMBER == '1'
+                        /* groovylint-disable-next-line ExplicitCallToEqualsMethod */
+                        !('SUCCESS'.equals(currentBuild.previousBuild.result))
+                    // env.BUILD_NUMBER == '1'
                     }
                 }
             }
             steps {
                 /* groovylint-disable-next-line GStringExpressionWithinString */
-                echo "${env.BUILD_NUMBER} && ${lastSuccessBuildName}"
+                echo "${env.BUILD_NUMBER}"
                 sh '''
                 docker stop $(docker ps --filter status=running -q)
                 docker rm $(docker ps -aq)
