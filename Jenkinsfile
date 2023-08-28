@@ -8,7 +8,7 @@ pipeline {
                     /* groovylint-disable-next-line NestedBlockDepth */
                     expression {
                         /* groovylint-disable-next-line ExplicitCallToEqualsMethod */
-                        !('SUCCESS'.equals(currentBuild.previousBuild.result)) 
+                        ('SUCCESS'.equals(currentBuild.previousBuild.result)) 
                     }
                 }
             }
@@ -26,8 +26,8 @@ pipeline {
                 script {
                     def buildNumber = BUILD_NUMBER
 
-                    if(buildNumber == 4){
-                        echo "build number is 4"
+                    if(buildNumber == 7){
+                        echo "build number is 7"
                     }
                 }
                 sh '''
