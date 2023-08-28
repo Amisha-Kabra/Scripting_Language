@@ -8,7 +8,7 @@ pipeline {
                     /* groovylint-disable-next-line NestedBlockDepth */
                     expression {
                         /* groovylint-disable-next-line ExplicitCallToEqualsMethod */
-                        ('SUCCESS'.equals(currentBuild.previousBuild.result)) || env.BUILD_NUMBER == '3'
+                        ('SUCCESS'.equals(currentBuild.previousBuild.result)) || env.BUILD_NUMBER == '1'
                     }
                 }
             }
