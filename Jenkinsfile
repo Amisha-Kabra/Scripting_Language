@@ -12,7 +12,8 @@ pipeline {
                 }
             }
             steps {
-                echo 'env.BUILD_NUMBER'
+                /* groovylint-disable-next-line GStringExpressionWithinString */
+                echo '${env.BUILD_NUMBER}'
                 sh '''
                 docker stop $(docker ps --filter status=running -q)
                 docker rm $(docker ps -aq)
