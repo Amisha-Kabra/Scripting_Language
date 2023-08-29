@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('pre build stage') {
+        stage('Pre build stage') {
             steps {
                 sh '''
                 docker stop $(docker ps --filter status=running -q) || true
@@ -9,7 +9,7 @@ pipeline {
                 '''
                     }  
             }
-        stage('build') {
+        stage('Build') {
             steps {
                 sh '''
                 cd TASK_1_Tomcat
@@ -17,7 +17,7 @@ pipeline {
                 '''
             }
         }
-        stage('run') {
+        stage('Run') {
             steps {
                 sh '''
                 docker run -d --name tomcat-demo-container -p 7070:8080 tomcat-demo
@@ -26,4 +26,3 @@ pipeline {
         }
         }
     }
-//jenkins file
