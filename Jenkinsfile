@@ -50,8 +50,7 @@ pipeline {
                 sed -i "24s/^/# /" demo-helm/Chart.yaml
                 cat demo-helm/values.yaml
                 sed -i '5s/replicaCount: 1/replicaCount: 2/' demo-helm/values.yaml
-                sed -i '8s/^/# /' demo-helm/values.yaml
-                sed -i '9i\repository: amishakabra' demo-helm/values.yaml
+                sed -i '8s/repository: nginx/repository: \$DOCKER_IMAGE /' ami-helm/values.yaml
                 cat demo-helm/values.yaml
                 '''
             }
