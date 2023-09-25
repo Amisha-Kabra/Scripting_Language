@@ -61,11 +61,17 @@ pipeline {
             }
         }
         stage('Chart install'){
-            steps{
-                sh '''
-                ls
-                sudo helm install demo demo-helm
-                '''
+            environment {
+                HELM_CHART = 'demo-helm' // Specify the Helm chart name
+                RELEASE_NAME = 'demo' // Specify the Helm release name
+                HELM_VALUES = 'values.yaml' // Specify the values file if needed
+            }
+            steps {
+                script {
+                    // Install or upgrade the Helm chart
+                    sh "helm upgrade --install ${RELEASE_NAME} ${HELM_CHART} -f ${HELM_VALUES}"
+                }
+                
             }
         }
         }
