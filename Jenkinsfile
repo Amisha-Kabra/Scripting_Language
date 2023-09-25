@@ -48,7 +48,7 @@ pipeline {
             steps {
                 sh '''
                 sed -i "24s/^/# /" demo-helm/Chart.yaml
-                sed -i "8s/repository: nginx/repository: amishakabra\/demo_kubernetes/" demo-helm/values.yaml
+                sed -i "8s/repository: nginx/repository: amishakabra/demo_kubernetes/" demo-helm/values.yaml
                 cat demo-helm/values.yaml
                 '''
             }
