@@ -47,13 +47,8 @@ pipeline {
         stage('Chart Setup') {
             steps {
                 sh '''
-                sed -i '24s/^/# /' demo-helm/Chart.yaml
-                sed -i '8s/repository: nginx/repository: amishakabra\/demo_kubernetes/' demo-helm/values.yaml
-                sed -i '40s/type: ClusterIP/type: NodePort/' demo-helm/values.yaml
-                sed -i '41s/port: 80/port: 8081/' demo-helm/values.yaml
-                sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}"/' demo-helm/templates/deployment.yaml
-                sed -i '40,47 s/^/#/' demo-helm/templates/deployment.yaml
-                cat demo-helm/templates/deployment.yaml
+                sed -i "24s/^/# /" demo-helm/Chart.yaml
+                sed -i "8s/repository: nginx/repository: amishakabra\/demo_kubernetes/" demo-helm/values.yaml
                 cat demo-helm/values.yaml
                 '''
             }
