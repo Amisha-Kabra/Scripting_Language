@@ -44,5 +44,13 @@ pipeline {
                 '''
             }
         }
+        stages('Chart Setup') {
+            steps {
+                sh '''
+                sed -i '24s/^/# /' demo-helm/Chart.yaml
+                cat demo-helm/Chart.yaml
+                '''
+            }
+        }
         }
     }
