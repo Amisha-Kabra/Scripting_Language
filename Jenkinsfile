@@ -2,8 +2,8 @@
 pipeline {
     agent any
     environment {
-        // Define environment variables here
-        DOCKER_IMAGE = 'amishakabra/demo_kubernetes'
+            DOCKER_IMAGE = 'amishakabra/demo_kubernetes'
+            PORT_NUMBER = '8081'
     }
     stages {
         stage('Docker Login') {
@@ -33,6 +33,14 @@ pipeline {
             steps {
                 sh '''
                 docker push \$DOCKER_IMAGE
+                '''
+            }
+        }
+        stage('Chart Creation') {
+            steps {
+                sh '''
+                helm create demo-helm
+                ls
                 '''
             }
         }
