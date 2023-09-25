@@ -63,6 +63,7 @@ pipeline {
         stage('Chart install'){
             steps{
                 sh '''
+                ls
                 helm install demo demo-helm
                 '''
             }
