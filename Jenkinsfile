@@ -64,7 +64,7 @@ pipeline {
             steps{
                 sh '''
                 ls
-                helm install demo demo-helm
+                sudo helm install demo demo-helm
                 '''
             }
         }
