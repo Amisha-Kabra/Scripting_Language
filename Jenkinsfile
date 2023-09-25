@@ -51,7 +51,9 @@ pipeline {
                 cat demo-helm/values.yaml
                 sed -i '5s/replicaCount: 1/replicaCount: 2/' demo-helm/values.yaml
                 sed -i '8s/^/# /' demo-helm/values.yaml
-                sed -i '9i\ repository: amishakabra/demo_kubernetes' demo-helm/values.yaml
+                sed -i '9i\rrepository: amishakabra/demo_kubernetes' demo-helm/values.yaml
+                sed -i '40s/type: ClusterIP/type: NodePort/' demo-helm/values.yaml
+                sed -i '41s/port: 80/port: \$PORT_NUMBER/' demo-helm/values.yaml
                 cat demo-helm/values.yaml
                 '''
             }
