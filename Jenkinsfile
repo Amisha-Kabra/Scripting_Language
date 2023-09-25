@@ -4,6 +4,7 @@ pipeline {
     environment {
             DOCKER_IMAGE = 'amishakabra/demo_kubernetes'
             PORT_NUMBER = '8081'
+            TYPE = 'NodePort'
     }
     stages {
         stage('Docker Login') {
@@ -50,7 +51,8 @@ pipeline {
                 sed -i "24s/^/# /" demo-helm/Chart.yaml
                 cat demo-helm/values.yaml
                 sed -i '5s/replicaCount: 1/replicaCount: 2/' demo-helm/values.yaml
-                sed -i '40s/type: ClusterIP/type: NodePort/' demo-helm/values.yaml
+                sed -i '8s/repository: nginx/repository: ${DOCKER_IMAGE}/' ami-helm/values.yaml
+                sed -i '40s/type: ClusterIP/type: ${TYPE}/' demo-helm/values.yaml
                 sed -i "41s/port: 80/port: ${PORT_NUMBER}/" demo-helm/values.yaml
                 cat demo-helm/values.yaml
                 '''
