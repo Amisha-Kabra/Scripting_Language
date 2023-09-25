@@ -62,5 +62,12 @@ pipeline {
                 '''
             }
         }
+        stage('Chart install'){
+            steps{
+                sh '''
+                helm install demo demo-helm
+                '''
+            }
+        }
         }
     }
