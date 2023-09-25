@@ -2,6 +2,7 @@
 pipeline {
     agent any
     stages {
+
         stage('Build') {
             steps {
                 sh '''
@@ -13,7 +14,7 @@ pipeline {
         stage('Push') {
             steps {
                 sh '''
-                docker run -p 7000:8081 -d amishakabra/demo_kubernetes
+                docker login -u amishakabra -p amisha12345
                 docker push amishakabra/demo_kubernetes
                 '''
             }
