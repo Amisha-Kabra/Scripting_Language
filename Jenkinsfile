@@ -26,7 +26,6 @@ pipeline {
         stage('Push') {
             steps {
                 sh '''
-                // docker login -u amishakabra -p amisha12345
                 docker push amishakabra/demo_kubernetes
                 '''
             }
