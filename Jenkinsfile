@@ -37,9 +37,12 @@ pipeline {
                 '''
             }
         }
+
         stage('Chart Creation') {
             steps {
                 sh '''
+                helm uninstall demo |true
+                rm -r demo-helm | true
                 helm create demo-helm
                 ls
                 '''
