@@ -17,7 +17,7 @@ pipeline {
                     // Log in to Docker Hub using the credentials
                     /* groovylint-disable-next-line LineLength, NestedBlockDepth */
                     withCredentials([usernamePassword(credentialsId: dockerCredentialsId, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        sh "docker login -u \$DOCKER_USERNAME -p \$DOCKER_PASSWORD"
+                        sh "sudo docker login -u \$DOCKER_USERNAME -p \$DOCKER_PASSWORD"
                     }
                 }
             }
@@ -26,14 +26,14 @@ pipeline {
             steps {
                 sh '''
                 ls
-                docker build -t \$DOCKER_IMAGE .
+                sudo docker build -t \$DOCKER_IMAGE .
                 '''
             }
         }
         stage('Push') {
             steps {
                 sh '''
-                docker push \$DOCKER_IMAGE
+                sudo docker push \$DOCKER_IMAGE
                 '''
             }
         }
