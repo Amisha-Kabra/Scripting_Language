@@ -20,7 +20,7 @@
 
 h1 {
   margin-bottom: 1.5%;
-  color: #111111;
+  color: #fff;
   font-weight: normal;
 }
 
@@ -81,7 +81,7 @@ input[type="button"]:hover {
 
 #clear-button {
   color: #fff;
-  background-color: rgb(255, 25, 25);
+  background-color: rgba(33, 255, 25, 0.884);
 }
 
 a {
