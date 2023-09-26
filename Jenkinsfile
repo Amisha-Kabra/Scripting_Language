@@ -67,7 +67,7 @@ pipeline {
             steps{
                 sh '''
                 sudo helm install demo demo-helm
-                kubectl get all
+                sudo kubectl get all
                 export NODE_PORT=$(sudo kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services demo-demo-helm)
                 export NODE_IP=$(sudo kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
                 echo http://$NODE_IP:$NODE_PORT
