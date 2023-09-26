@@ -60,6 +60,8 @@ pipeline {
                 sed -i '40,47 s/^/#/' demo-helm/templates/deployment.yaml
                 cat demo-helm/values.yaml
                 cat demo-helm/templates/deployment.yaml
+                sed -i '12i\rnodePort: 30070' demo-helm/templates/service.yaml
+                cat demo-helm/templates/service.yaml
                 '''
             }
         }
