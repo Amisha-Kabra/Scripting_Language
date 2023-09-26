@@ -52,13 +52,12 @@ pipeline {
             steps {
                 sh '''
                 sed -i "24s/^/# /" demo-helm/Chart.yaml
-                cat demo-helm/values.yaml
                 sed -i '5s/replicaCount: 1/replicaCount: 2/' demo-helm/values.yaml
                 sed -i "40s/type: ClusterIP/type: ${TYPE}/" demo-helm/values.yaml
                 sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}"/' demo-helm/templates/deployment.yaml
                 sed -i '40,47 s/^/#/' demo-helm/templates/deployment.yaml
-                cat demo-helm/values.yaml
-                cat demo-helm/templates/deployment.yaml
+                sed -i '8s/^/# /' demo-helm/values.yaml
+                sed -i '9i\rrepository: amishakabra/demo_kubernetes' demo-helm/values.yaml
                 '''
             }
         }
