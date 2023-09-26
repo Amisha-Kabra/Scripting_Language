@@ -3,7 +3,7 @@ pipeline {
     agent any
     environment {
             DOCKER_IMAGE = 'amishakabra/demo_kubernetes'
-            PORT_NUMBER = '8081'
+            PORT_NUMBER = '80'
             TYPE = 'NodePort'
     }
     stages {
@@ -55,7 +55,6 @@ pipeline {
                 cat demo-helm/values.yaml
                 sed -i '5s/replicaCount: 1/replicaCount: 2/' demo-helm/values.yaml
                 sed -i "40s/type: ClusterIP/type: ${TYPE}/" demo-helm/values.yaml
-                sed -i "41s/port: 80/port: ${PORT_NUMBER}/" demo-helm/values.yaml
                 sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}"/' demo-helm/templates/deployment.yaml
                 sed -i '40,47 s/^/#/' demo-helm/templates/deployment.yaml
                 cat demo-helm/values.yaml
