@@ -57,7 +57,7 @@ pipeline {
                 sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}"/' demo-helm/templates/deployment.yaml
                 sed -i '40,47 s/^/#/' demo-helm/templates/deployment.yaml
                 sed -i '8s/^/# /' demo-helm/values.yaml
-                sed -i "9i\rrepository: ${DOCKER_IMAGE}" demo-helm/values.yaml 
+                sed -i "9i\r  repository: ${DOCKER_IMAGE}" demo-helm/values.yaml 
                 cat demo-helm/values.yaml
                 '''
             }
