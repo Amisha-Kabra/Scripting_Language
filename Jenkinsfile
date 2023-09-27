@@ -39,7 +39,7 @@ pipeline {
         stage('Push') {
             steps {
                 sh '''
-                sudo docker push \$DOCKER_IMAGE
+                sudo docker push \$DOCKER_IMAGE:latest
                 '''
             }
         }
