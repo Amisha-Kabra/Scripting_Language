@@ -62,6 +62,8 @@ pipeline {
                 sed -i "40s/type: ClusterIP/type: ${TYPE}/" \$HELM_PACKAGE/values.yaml
                 sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}"/' \$HELM_PACKAGE/templates/deployment.yaml
                 sed -i '40,47 s/^/#/' \$HELM_PACKAGE/templates/deployment.yaml
+                sed -i "12i\      nodePort: {{  .Values.service.nodePort }}" \$HELM_PACKAGE/templates/service.yaml
+                sed -i "42i\  nodePort: 30070" \$HELM_PACKAGE/values.yaml
                 sed -i '8s/^/# /' \$HELM_PACKAGE/values.yaml
                 sed -i "9i\r  repository: ${DOCKER_IMAGE}" \$HELM_PACKAGE/values.yaml 
                 cat \$HELM_PACKAGE/values.yaml
@@ -72,6 +74,7 @@ pipeline {
             steps {
                 sh '''
                 sudo helm install \$HELM_RELEASE \$HELM_PACKAGE
+                sleep 10
                 export NODE_PORT=$(sudo kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services demo-demo-helm)
                 export NODE_IP=$(sudo kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
                 echo http://$NODE_IP:$NODE_PORT
