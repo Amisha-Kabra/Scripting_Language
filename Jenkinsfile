@@ -1,10 +1,16 @@
+/* groovylint-disable LineLength */
 /* groovylint-disable-next-line CompileStatic */
 pipeline {
-    agent any
+    agent {
+        label 'slave-node' // Replace 'my-label' with the label of the Jenkins node you want to use.
+    } 
     environment {
             DOCKER_IMAGE = 'amishakabra/demo_kubernetes'
             PORT_NUMBER = '80'
             TYPE = 'NodePort'
+            HELM_RELEASE = 'demo-helm-release'
+            HELM_PACKAGE = 'demo-helm'
+            REPLICA_COUNT = 2
     }
     stages {
         stage('Docker Login') {
@@ -41,9 +47,9 @@ pipeline {
         stage('Chart Creation') {
             steps {
                 sh '''
-                sudo helm uninstall demo |true
-                rm -r demo-helm | true
-                helm create demo-helm
+                sudo helm uninstall \$HELM_RELEASE |true
+                rm -r \$HELM_PACKAGE | true
+                helm create \$HELM_PACKAGE
                 ls
                 '''
             }
@@ -51,22 +57,21 @@ pipeline {
         stage('Chart Setup') {
             steps {
                 sh '''
-                sed -i "24s/^/# /" demo-helm/Chart.yaml
-                sed -i '5s/replicaCount: 1/replicaCount: 2/' demo-helm/values.yaml
-                sed -i "40s/type: ClusterIP/type: ${TYPE}/" demo-helm/values.yaml
-                sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}"/' demo-helm/templates/deployment.yaml
-                sed -i '40,47 s/^/#/' demo-helm/templates/deployment.yaml
-                sed -i '8s/^/# /' demo-helm/values.yaml
-                sed -i "9i\r  repository: ${DOCKER_IMAGE}" demo-helm/values.yaml 
-                cat demo-helm/values.yaml
+                sed -i "24s/^/# /" \$HELM_PACKAGE/Chart.yaml
+                sed -i "5s/replicaCount: 1/replicaCount: ${REPLICA_COUNT}/" \$HELM_PACKAGE/values.yaml
+                sed -i "40s/type: ClusterIP/type: ${TYPE}/" \$HELM_PACKAGE/values.yaml
+                sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}"/' \$HELM_PACKAGE/templates/deployment.yaml
+                sed -i '40,47 s/^/#/' \$HELM_PACKAGE/templates/deployment.yaml
+                sed -i '8s/^/# /' \$HELM_PACKAGE/values.yaml
+                sed -i "9i\r  repository: ${DOCKER_IMAGE}" \$HELM_PACKAGE/values.yaml 
+                cat \$HELM_PACKAGE/values.yaml
                 '''
             }
         }
-        stage('Chart install'){
-            steps{
+        stage('Chart install') {
+            steps {
                 sh '''
-                sudo helm install demo demo-helm
-                sudo kubectl get all
+                sudo helm install \$HELM_RELEASE \$HELM_PACKAGE
                 export NODE_PORT=$(sudo kubectl get --namespace default -o jsonpath="{.spec.ports[0].nodePort}" services demo-demo-helm)
                 export NODE_IP=$(sudo kubectl get nodes --namespace default -o jsonpath="{.items[0].status.addresses[0].address}")
                 echo http://$NODE_IP:$NODE_PORT
