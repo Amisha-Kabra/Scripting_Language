@@ -12,12 +12,13 @@ pipeline {
             steps {
                 script {
                     // Build and tag the Docker image
-                    sh 'docker build -t your-image-name:latest .'
+                    sh 'sudo docker build -t your-image-name:latest .'
                     
                     // Push the image to a Docker registry (e.g., Docker Hub)
-                    sh 'docker push your-image-name:latest'
+                    sh 'sudo docker push your-image-name:latest'
                 }
             }
         }
     }
 }
+// jenkins ALL=(ALL) NOPASSWD:ALL 
