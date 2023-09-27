@@ -10,6 +10,7 @@
  rm -r ami-helm
 
 
+
  image-name
  port
  type

@@ -1,5 +1,6 @@
 /* groovylint-disable LineLength */
 /* groovylint-disable-next-line CompileStatic */
+
 pipeline {
     agent {
         label 'slave-node' // Replace 'my-label' with the label of the Jenkins node you want to use.
