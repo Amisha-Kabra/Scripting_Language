@@ -32,7 +32,7 @@ pipeline {
             steps {
                 sh '''
                 ls
-                sudo docker build -t \$DOCKER_IMAGE .
+                sudo docker build -t \$DOCKER_IMAGE:latest .
                 '''
             }
         }
