@@ -68,7 +68,7 @@ pipeline {
                 sed -i "12i\r      nodePort: {{  .Values.service.nodePort }}" \$HELM_PACKAGE/templates/service.yaml
                 sed -i "45i\r  nodePort: 30070" \$HELM_PACKAGE/values.yaml
                 sed -i '8s/^/# /' \$HELM_PACKAGE/values.yaml
-                sed -i "9i\#   repository: ${DOCKER_IMAGE}" \$HELM_PACKAGE/values.yaml
+                sed -i "9i\r   repository: ${DOCKER_IMAGE}" \$HELM_PACKAGE/values.yaml
                 nl -b a \$HELM_PACKAGE/values.yaml
                 '''
             }
