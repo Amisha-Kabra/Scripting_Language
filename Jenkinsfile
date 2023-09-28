@@ -60,22 +60,13 @@ pipeline {
         stage('Chart Setup') {
             steps {
                 sh '''
-                nl -b a \$HELM_PACKAGE/values.yaml
-                sed -i "24s/^/# /" \$HELM_PACKAGE/Chart.yaml
-                sed -i "5s/replicaCount: 1/replicaCount: ${REPLICA_COUNT}/" \$HELM_PACKAGE/values.yaml
-                sed -i "43s/type: ClusterIP/type: ${TYPE}/" \$HELM_PACKAGE/values.yaml
-
-                sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}:latest"/' \$HELM_PACKAGE/templates/deployment.yaml
+                python3 script.py
                 sed -i '43,50 s/^/#/' \$HELM_PACKAGE/templates/deployment.yaml
-                sed -i "12i\r      nodePort: {{  .Values.service.nodePort }}" \$HELM_PACKAGE/templates/service.yaml
-                sed -i "45i\r  nodePort: 30070" \$HELM_PACKAGE/values.yaml
-                sed -i '8s/^/# /' \$HELM_PACKAGE/values.yaml
                 sed -i '12s/^/# /' \$HELM_PACKAGE/templates/serviceaccount.yaml
-                sed -i '11s/^/# /' \$HELM_PACKAGE/values.yaml
-                sed -i "12i\r  tag: ${BUILD_NUMBER}" \$HELM_PACKAGE/values.yaml
-                sed -i "9i\r  repository: ${DOCKER_IMAGE}" \$HELM_PACKAGE/values.yaml
+                nl -b a \$HELM_PACKAGE/templates/service.yaml
                 nl -b a \$HELM_PACKAGE/templates/deployment.yaml
                 nl -b a \$HELM_PACKAGE/values.yaml
+                nl -b a \$HELM_PACKAGE/Chart.yaml
 
                 '''
             }
