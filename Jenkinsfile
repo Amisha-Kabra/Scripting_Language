@@ -62,7 +62,7 @@ pipeline {
             steps {
                 sh '''
                 python3 script.py
-                sed -i '43,50 s/^/#/' \$HELM_PACKAGE/templates/deployment.yaml
+                sed -i '40,47 s/^/#/' \$HELM_PACKAGE/templates/deployment.yaml
                 sed -i '12s/^/# /' \$HELM_PACKAGE/templates/serviceaccount.yaml
                 nl -b a \$HELM_PACKAGE/templates/service.yaml
                 nl -b a \$HELM_PACKAGE/templates/deployment.yaml
