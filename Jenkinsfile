@@ -60,13 +60,14 @@ pipeline {
                 sed -i "24s/^/# /" \$HELM_PACKAGE/Chart.yaml
                 sed -i "5s/replicaCount: 1/replicaCount: ${REPLICA_COUNT}/" \$HELM_PACKAGE/values.yaml
                 sed -i "40s/type: ClusterIP/type: ${TYPE}/" \$HELM_PACKAGE/values.yaml
+                sed -i '11s/tag: ""/tag: 1.0.0/' \$HELM_PACKAGE/values.yaml
                 sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}:latest"/' \$HELM_PACKAGE/templates/deployment.yaml
                 sed -i '40,47 s/^/#/' \$HELM_PACKAGE/templates/deployment.yaml
                 sed -i "12i\r      nodePort: {{  .Values.service.nodePort }}" \$HELM_PACKAGE/templates/service.yaml
                 sed -i "42i\r  nodePort: 30070" \$HELM_PACKAGE/values.yaml
                 sed -i '8s/^/# /' \$HELM_PACKAGE/values.yaml
                 sed -i "9i\r  repository: ${DOCKER_IMAGE}" \$HELM_PACKAGE/values.yaml
-                cat \$HELM_PACKAGE/values.yaml
+                nl -b a \$HELM_PACKAGE/values.yaml
                 '''
             }
         }
