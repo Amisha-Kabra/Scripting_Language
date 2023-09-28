@@ -64,7 +64,7 @@ pipeline {
             
                 sed -i '11s/tag: ""/tag: 1.0.0/' \$HELM_PACKAGE/values.yaml
                 sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}:latest"/' \$HELM_PACKAGE/templates/deployment.yaml
-                sed -i '40,47 s/^/#/' \$HELM_PACKAGE/templates/deployment.yaml
+                sed -i '43,50 s/^/#/' \$HELM_PACKAGE/templates/deployment.yaml
                 sed -i "12i\r      nodePort: {{  .Values.service.nodePort }}" \$HELM_PACKAGE/templates/service.yaml
                 sed -i "45i\r  nodePort: 30070" \$HELM_PACKAGE/values.yaml
                 sed -i '8s/^/# /' \$HELM_PACKAGE/values.yaml
