@@ -11,6 +11,7 @@ pipeline {
             HELM_RELEASE = 'demo-helm-release'
             HELM_PACKAGE = 'demo-helm'
             REPLICA_COUNT = 2
+
     }
     stages {
         stage('Docker Login') {
@@ -33,14 +34,14 @@ pipeline {
                 sh '''
                 ls
                 sudo docker images
-                sudo docker build -t \$DOCKER_IMAGE:1.0.0 .
+                sudo docker build -t \$DOCKER_IMAGE:1 .
                 '''
             }
         }
         stage('Push') {
             steps {
                 sh '''
-                sudo docker push \$DOCKER_IMAGE:1.0.0
+                sudo docker push \$DOCKER_IMAGE:1
                 '''
             }
         }
@@ -63,7 +64,7 @@ pipeline {
                 sed -i "24s/^/# /" \$HELM_PACKAGE/Chart.yaml
                 sed -i "5s/replicaCount: 1/replicaCount: ${REPLICA_COUNT}/" \$HELM_PACKAGE/values.yaml
                 sed -i "43s/type: ClusterIP/type: ${TYPE}/" \$HELM_PACKAGE/values.yaml
-                sed -i '11s/tag: ""/tag: 1.0.0/' \$HELM_PACKAGE/values.yaml
+                sed -i '11s/tag: ""/tag: 1/' \$HELM_PACKAGE/values.yaml
                 sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}:latest"/' \$HELM_PACKAGE/templates/deployment.yaml
                 sed -i '43,50 s/^/#/' \$HELM_PACKAGE/templates/deployment.yaml
                 sed -i "12i\r      nodePort: {{  .Values.service.nodePort }}" \$HELM_PACKAGE/templates/service.yaml
