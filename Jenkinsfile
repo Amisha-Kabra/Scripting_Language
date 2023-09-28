@@ -1,9 +1,10 @@
 /* groovylint-disable LineLength, NglParseError */
 /* groovylint-disable-next-line CompileStatic */
 pipeline {
-    agent {
-        label 'slave-node' // Replace 'my-label' with the label of the Jenkins node you want to use.
-    } 
+    agent any
+    // {
+    //     label 'slave-node' // Replace 'my-label' with the label of the Jenkins node you want to use.
+    // } 
     environment {
             DOCKER_IMAGE = 'amishakabra/demo_kubernetes'
             PORT_NUMBER = '80'
