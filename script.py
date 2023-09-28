@@ -14,7 +14,7 @@ print(f'My variable: {my_variable}')
 
 
 def replaceChart():
-	path = 'demo.yaml'
+	path = HELM_PACKAGE+'/Chart.yaml'
 	with open(path, 'r') as file:
 		data = file.read()
 		data = data.replace('appVersion: "1.16.0"', '#appVersion: "1.16.0"')
@@ -23,7 +23,7 @@ def replaceChart():
 
 
 def replaceValues():
-	path = 'demo.yaml'
+	path = HELM_PACKAGE+'/values.yaml'
 	with open(path, 'r') as file:
 		data = file.read()
 		data = data.replace('replicaCount: 1', f'replicaCount: {REPLICA_COUNT}')
@@ -36,7 +36,7 @@ def replaceValues():
 
 
 def replaceServiceAccount():
-	path='demo.yaml'
+	path= HELM_PACKAGE+'/templates/serviceaccount.yaml'
 	with open(path, 'r') as file:
 		data = file.read()
 		data = data.replace('automountServiceAccountToken:', '#automountServiceAccountToken:')
@@ -46,7 +46,7 @@ def replaceServiceAccount():
 
 
 def replaceService():
-	path='demo.yaml'
+	path=HELM_PACKAGE+'/templates/service.yaml'
 	with open(path, 'r') as file:
 		data = file.read()
 		data = data.replace('targetPort: http', 'targetPort: http \n      nodePort: {{ .Values.service.nodePort }}')
