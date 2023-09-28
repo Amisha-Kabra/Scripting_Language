@@ -75,6 +75,8 @@ pipeline {
                 sed -i '12i\r  tag: "${BUILD_NUMBER}"/' \$HELM_PACKAGE/values.yaml
                 sed -i "9i\r  repository: ${DOCKER_IMAGE}" \$HELM_PACKAGE/values.yaml
                 nl -b a \$HELM_PACKAGE/templates/deployment.yaml
+                nl -b a \$HELM_PACKAGE/values.yaml
+
                 '''
             }
         }
