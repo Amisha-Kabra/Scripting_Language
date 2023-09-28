@@ -32,6 +32,7 @@ pipeline {
             steps {
                 sh '''
                 ls
+                sudo docker images
                 sudo docker build -t \$DOCKER_IMAGE:1.0.0 .
                 '''
             }
@@ -47,6 +48,7 @@ pipeline {
         stage('Chart Creation') {
             steps {
                 sh '''
+                sudo docker images
                 sudo helm uninstall \$HELM_RELEASE |true
                 rm -r \$HELM_PACKAGE | true
                 helm create \$HELM_PACKAGE
@@ -61,7 +63,6 @@ pipeline {
                 sed -i "24s/^/# /" \$HELM_PACKAGE/Chart.yaml
                 sed -i "5s/replicaCount: 1/replicaCount: ${REPLICA_COUNT}/" \$HELM_PACKAGE/values.yaml
                 sed -i "43s/type: ClusterIP/type: ${TYPE}/" \$HELM_PACKAGE/values.yaml
-            
                 sed -i '11s/tag: ""/tag: 1.0.0/' \$HELM_PACKAGE/values.yaml
                 sed -i '34s/image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"/image: "{{ .Values.image.repository }}:latest"/' \$HELM_PACKAGE/templates/deployment.yaml
                 sed -i '43,50 s/^/#/' \$HELM_PACKAGE/templates/deployment.yaml
