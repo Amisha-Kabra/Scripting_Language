@@ -12,7 +12,8 @@ pipeline {
             HELM_RELEASE = 'demo-helm-release'
             HELM_PACKAGE = 'demo-helm'
             REPLICA_COUNT = 2
-
+            NODEPORT = 30070
+            TAG = "${BUILD_NUMBER}"
     }
     stages {
         stage('Docker Login') {

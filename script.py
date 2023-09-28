@@ -1,16 +1,12 @@
 import os
-HELM_RELEASE = 'demo-helm-release'
-HELM_PACKAGE = 'demo-helm'
-TAG = 1
-PORT = 80
-NODEPORT = 30070 
-REPLICA_COUNT = 2
-TYPE = 'NodePort'
-DOCKER_IMAGE = 'amishakabra/demo_kubernetes'
-
-
-my_variable = os.environ.get('DOCKER_IMAGE')
-print(f'My variable: {my_variable}')
+HELM_RELEASE = os.environ.get('HELM_RELEASE')
+HELM_PACKAGE = os.environ.get('HELM_PACKAGE')
+TAG = os.environ.get('TAG')
+PORT = os.environ.get('PORT_NUMBER')
+NODEPORT = os.environ.get('NODEPORT')
+REPLICA_COUNT = os.environ.get('REPLICA_COUNT')
+TYPE = os.environ.get('TYPE')
+DOCKER_IMAGE = os.environ.get('DOCKER_IMAGE')
 
 
 def replaceChart():
